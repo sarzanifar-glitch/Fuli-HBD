@@ -11,16 +11,24 @@
   p{line-height:1.6;font-size:1.05rem;margin:0 0 10px;white-space:pre-line}
   .section-gap{height:24px}
 
-  /* kutular */
-  .gift-box,.reminder-box,.mini-gift{
-    width:180px;height:130px;border-radius:18px;margin:0 auto 18px;
-    background:linear-gradient(180deg,#d8b6ff,#c89cf5);
+  /* Görsel kutular (4:3, tıklanabilir) */
+  .gift-img{
+    width:min(260px,70%);
+    aspect-ratio:4/3;
+    object-fit:cover;
+    border-radius:18px;
     box-shadow:0 10px 30px rgba(120,0,255,.20);
-    transition:transform .25s, box-shadow .25s; cursor:pointer; position:relative;
+    border:1px solid rgba(168,120,238,.25);
+    cursor:pointer;
+    transition:transform .22s, box-shadow .22s, filter .22s;
+    background:#efd9ff;
+    display:block;
+    margin:0 auto 14px;
   }
-  .gift-box:hover,.reminder-box:hover,.mini-gift:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(120,0,255,.25)}
-  .gift-caption{font-weight:700;margin-bottom:10px;font-size:1.05rem}
-  .hint{font-size:.95rem;opacity:.85;margin:-6px 0 12px}
+  .gift-img:hover{transform:scale(1.03);box-shadow:0 16px 44px rgba(120,0,255,.28);filter:saturate(1.03)}
+
+  .gift-caption{font-weight:700;margin:6px 0 6px;font-size:1.05rem}
+  .hint{font-size:.95rem;opacity:.85;margin:-4px 0 12px}
 
   /* foto kolaj */
   .collage-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px auto 22px;width:100%;max-width:560px}
@@ -28,7 +36,7 @@
   .collage-item.show{opacity:1}
   @media (max-width:560px){.collage-wrap{grid-template-columns:repeat(2,1fr)}.collage-item:nth-child(3){display:none}}
 
-  /* gag (şaka) kutusu ve foto */
+  /* şaka kutusu */
   .gag-box{display:none;background:#fff4ff;border:1px solid rgba(168,120,238,.25);border-radius:18px;padding:16px 16px 12px;margin:14px 0 10px;box-shadow:0 8px 24px rgba(164,120,238,.18);animation:fadeUp .35s ease}
   .gag-photo{width:100%;max-width:520px;border-radius:14px;box-shadow:0 8px 24px rgba(164,120,238,.18);margin:10px auto}
   .gag-lead{font-weight:700}
@@ -37,14 +45,13 @@
   /* Dyson hediye bölümü */
   .dyson-box{background:#f6edff;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 8px 28px rgba(164,120,238,.2);display:none}
   .dyson-box.show{display:block;animation:fadeUp .45s ease}
-  .dyson-box img{width:100%;border-radius:16px}
-  .dyson-title{font-size:1.5rem;margin:12px 0 4px;font-weight:800}
+  .dyson-gallery{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:10px}
+  .dyson-gallery img{width:100%;border-radius:16px;border:1px solid rgba(168,120,238,.22);box-shadow:0 8px 20px rgba(114,61,186,.12)}
+  @media(min-width:620px){.dyson-gallery{grid-template-columns:repeat(3,1fr)}}
+  .dyson-title{font-size:1.5rem;margin:10px 0 4px;font-weight:800}
 
-  /* buton */
-  .btn{
-    display:inline-block;padding:10px 16px;border-radius:12px;background:#d5b3ff;color:#4b2a63;
-    font-weight:700;cursor:pointer;margin-top:10px;text-decoration:none;border:0
-  }
+  /* buton (müzik fallback) */
+  .btn{display:inline-block;padding:10px 16px;border-radius:12px;background:#d5b3ff;color:#4b2a63;font-weight:700;cursor:pointer;margin-top:10px;text-decoration:none;border:0}
   .btn:hover{background:#caa6ff}
   a.link{color:#b26eff;font-weight:700;text-decoration:none}
   a.link:hover{text-decoration:underline}
@@ -57,8 +64,8 @@
 <main>
   <h1>Kutuyu aç ve sürprizini keşfet ✨</h1>
 
-  <!-- 1. kutu: ana mesaj + kolajı aç -->
-  <div class="gift-box open-cta" onclick="openMain()"></div>
+  <!-- 1) Birinci kutu: ana metin + kolaj -->
+  <img src="gift-box-1.jpg" alt="Kutuyu aç (1)" class="gift-img" onclick="openMain()"/>
 
   <!-- ANA BÖLÜM -->
   <section id="mainReveal" style="display:none">
@@ -82,7 +89,7 @@ ama hep seninle. ❤️
 İyi ki varsın Aşkom. 🎂🌸
     </p>
 
-    <!-- Kolaj -->
+    <!-- 2–3’lü foto kolajı -->
     <div class="collage-wrap" id="collage">
       <img id="col1" class="collage-item" alt="" loading="lazy" decoding="async">
       <img id="col2" class="collage-item" alt="" loading="lazy" decoding="async">
@@ -91,10 +98,10 @@ ama hep seninle. ❤️
 
     <div class="section-gap"></div>
 
-    <!-- 2. kutu: şaka + gerçek hediye akışı -->
+    <!-- 2) İkinci kutu: şaka bölümü -->
     <div class="gift-caption">Hediyemi unuttum zannetme 😉</div>
     <div class="hint">Aşağıdaki kutuya tıkla, hediyeni gör 😊</div>
-    <div class="reminder-box" onclick="openGag()"></div>
+    <img src="gift-box-2.jpg" alt="Kutuyu aç (2)" class="gift-img" onclick="openGag()"/>
 
     <!-- ŞAKA BÖLÜMÜ -->
     <div id="gagBox" class="gag-box" aria-hidden="true">
@@ -108,16 +115,21 @@ ama hep seninle. ❤️
       <p class="gag-note">“Yok artık, hediye bu olamaz!” dediğini duyar gibiyim 😅</p>
       <p class="gag-note">Haklısın! Gerçek hediye aşağıda 👇</p>
 
-      <button class="btn" type="button" onclick="openRealGift()">Tıkla da gönlünü alayım 🎁</button>
+      <!-- 3) Üçüncü kutu: gerçek hediyeyi aç -->
+      <img src="gift-box-3.jpg" alt="Kutuyu aç (3)" class="gift-img" onclick="openRealGift()"/>
     </div>
 
     <!-- GERÇEK HEDİYE -->
     <div id="dysonBox" class="dyson-box" aria-hidden="true">
-      <img src="dyson-amber-silk.jpg" alt="Dyson Airstrait Amber Silk / Pink Champagne">
+      <div class="dyson-gallery">
+        <img src="dyson-amber-silk.jpg"   alt="Dyson Airstrait Amber Silk / Pink Champagne - 1">
+        <img src="dyson-amber-silk-2.jpg" alt="Dyson Airstrait Amber Silk / Pink Champagne - 2">
+        <img src="dyson-amber-silk-3.jpg" alt="Dyson Airstrait Amber Silk / Pink Champagne - 3">
+      </div>
       <div class="dyson-title">Dyson Airstrait™</div>
       <div>Amber Silk / Pink Champagne</div>
       <div class="footer">
-        <small>Hediye sayfasındaki görsel temsildir. Ürün: Dyson Airstrait™ – Amber Silk / Pink Champagne.</small><br><br>
+        <small>Hediye sayfasındaki görseller temsildir. Ürün: Dyson Airstrait™ – Amber Silk / Pink Champagne.</small><br><br>
         <a class="link" href="https://www.dyson.com/hair-care/hair-straighteners/airstrait" target="_blank" rel="noopener">Dyson Airstrait™ Resmi Sitesi →</a>
       </div>
     </div>
@@ -147,7 +159,7 @@ ama hep seninle. ❤️
         fix.textContent='🔊 Müziği Başlat';
         fix.className='btn';
         fix.onclick=()=>audio.play().catch(()=>{});
-        document.querySelector('.open-cta')?.after(fix);
+        document.querySelector('h1').after(fix);
       });
     }
   }
