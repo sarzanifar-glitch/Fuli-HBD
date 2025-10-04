@@ -5,252 +5,162 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Doğum Günün Kutlu Olsun 💜</title>
 <style>
-  body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background: linear-gradient(145deg, #f4e7ff, #fff);
-    color: #4b2a63;
-    text-align: center;
-    overflow-x: hidden;
-  }
+  body{margin:0;font-family:"Poppins",sans-serif;background:linear-gradient(145deg,#f4e7ff,#fff);color:#4b2a63;text-align:center;overflow-x:hidden}
+  main{max-width:680px;margin:0 auto;padding:30px 18px 80px}
+  h1{font-size:1.35rem;font-weight:600;margin-bottom:22px}
+  p{line-height:1.6;font-size:1.05rem;margin:0 0 10px;white-space:pre-line}
+  .section-gap{height:24px}
 
-  main {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 30px 20px 80px;
+  .gift-box,.reminder-box{
+    width:180px;height:130px;border-radius:18px;margin:0 auto 18px;
+    background:linear-gradient(180deg,#d8b6ff,#c89cf5);
+    box-shadow:0 10px 30px rgba(120,0,255,.20);
+    transition:transform .25s, box-shadow .25s; cursor:pointer; position:relative;
   }
+  .gift-box:hover,.reminder-box:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(120,0,255,.25)}
+  .gift-caption{font-weight:700;margin-bottom:10px;font-size:1.05rem}
+  .hint{font-size:.95rem;opacity:.85;margin:-6px 0 12px}
 
-  h1 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 25px;
-  }
+  .collage-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px auto 22px;width:100%;max-width:560px}
+  .collage-item{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;box-shadow:0 6px 18px rgba(114,61,186,.12);border:1px solid rgba(168,120,238,.2);opacity:0;transition:opacity .45s}
+  .collage-item.show{opacity:1}
+  @media (max-width:560px){.collage-wrap{grid-template-columns:repeat(2,1fr)}.collage-item:nth-child(3){display:none}}
 
-  .gift-box {
-    width: 160px;
-    height: 120px;
-    background: linear-gradient(180deg, #d8b6ff, #c89cf5);
-    border-radius: 16px;
-    margin: 0 auto 30px;
-    box-shadow: 0 10px 30px rgba(120, 0, 255, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  .dyson-box{background:#f6edff;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 8px 28px rgba(164,120,238,.2);display:none}
+  .dyson-box.show{display:block;animation:fadeUp .45s ease}
+  .dyson-box img{width:100%;border-radius:16px}
+  .dyson-title{font-size:1.5rem;margin:12px 0 4px;font-weight:800}
+  .btn{
+    display:inline-block;padding:10px 16px;border-radius:12px;background:#d5b3ff;color:#4b2a63;
+    font-weight:700;cursor:pointer;margin-top:10px;text-decoration:none
   }
-  .gift-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 40px rgba(120, 0, 255, 0.25);
-  }
+  .btn:hover{background:#caa6ff}
+  a.link{color:#b26eff;font-weight:700;text-decoration:none}
+  a.link:hover{text-decoration:underline}
+  .footer{margin-top:16px;font-size:.95rem}
 
-  p {
-    line-height: 1.6;
-    font-size: 1.05rem;
-  }
-
-  .heart {
-    font-size: 1.2rem;
-    color: #ff6fb7;
-  }
-
-  .dyson-box {
-    background: #f6edff;
-    border-radius: 20px;
-    padding: 22px;
-    margin-top: 22px;
-    box-shadow: 0 8px 28px rgba(164, 120, 238, 0.2);
-  }
-
-  .dyson-box img {
-    width: 100%;
-    border-radius: 12px;
-  }
-
-  a {
-    color: #b26eff;
-    font-weight: 600;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-
-  .footer {
-    margin-top: 20px;
-    font-size: 0.95rem;
-  }
-
-  /* === 2-3'lü iç kolaj rotatörü === */
-  .collage-wrap {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 18px auto 20px;
-    width: 100%;
-    max-width: 520px;
-  }
-  .collage-item {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(114,61,186,.12);
-    border: 1px solid rgba(168,120,238,.2);
-    opacity: 0;
-    transition: opacity .5s ease;
-  }
-  .collage-item.show { opacity: 1; }
-
-  @media (max-width: 520px) {
-    .collage-wrap { grid-template-columns: repeat(2, 1fr); }
-    .collage-item:nth-child(3) { display: none; }
-  }
-
-  /* Müzik butonu (autoplay engellenirse) */
-  .btn {
-    display:inline-block;
-    padding:8px 16px;
-    border-radius:10px;
-    background:#d5b3ff;
-    color:#4b2a63;
-    font-weight:600;
-    cursor:pointer;
-    margin-top:12px;
-    transition:all .2s;
-  }
-  .btn:hover { background:#caa6ff; }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
-
 <body>
 <main>
   <h1>Kutuyu aç ve sürprizini keşfet ✨</h1>
 
-  <div class="gift-box open-cta" onclick="openGift()"></div>
+  <div class="gift-box open-cta" onclick="openMain()"></div>
 
-  <section id="reveal" style="display:none;">
+  <section id="mainReveal" style="display:none">
     <p>
-      Canım Fulyam,
+Canım Fulya’m,
 
-Bugün senin günün...<br/>
-      ama aslında seni tanıdığım her gün biraz “doğum günü” gibi benim için.
+Bugün senin günün… ama aslında seni tanıdığım her gün biraz “doğum günü” gibi benim için.
 Çünkü hayatıma kattığın neşe, sevgi ve huzur, her sabah yeniden doğmuşum gibi hissettiriyor. ☀️
 
 Senin gülüşün, en sıradan anları bile güzelleştiriyor;
 bir bakışın, her şeyi sakinleştiriyor.
 Bazen birlikte kahkahalar atıyoruz, bazen sessizce birbirimizi anlıyoruz…
 ve her defasında içimden “iyi ki varsın” diyorum. 💫
-    </p>
 
-    <p class="heart">Dilerim bu yeni yaşında kalbinin dilediği her şey sana gelsin —
+Dilerim bu yeni yaşında kalbinin dilediği her şey sana gelsin —
 en güzel yollar, en doğru insanlar ve en içten mutluluklar.
 Ben de hep yanında olayım; bazen sessiz bir destek, bazen en yüksek kahkahan…
 ama hep seninle. ❤️
-      İyi ki doğdun Fulyam,
+
+İyi ki doğdun Bebişim,
 İyi ki varsın Aşkom. 🎂🌸
     </p>
 
-    <!-- 🎞️ Kolaj fotoğraf döngüsü -->
     <div class="collage-wrap" id="collage">
       <img id="col1" class="collage-item" alt="" loading="lazy" decoding="async">
       <img id="col2" class="collage-item" alt="" loading="lazy" decoding="async">
       <img id="col3" class="collage-item" alt="" loading="lazy" decoding="async">
     </div>
 
-    <div class="dyson-box">
-      <img src="dyson-amber-silk.jpg" alt="Dyson Airstrait Amber Silk / Pink Champagne" />
-      <h2>Dyson Airstrait™</h2>
-      <p>Amber Silk / Pink Champagne</p>
+    <div class="section-gap"></div>
+
+    <div class="gift-caption">Hediyemi unuttum zannetme 😉</div>
+    <div class="hint">Aşağıdaki kutuya tıkla, hediyeni gör 😊</div>
+    <div class="reminder-box" onclick="openGift()"></div>
+
+    <div id="dysonBox" class="dyson-box" aria-hidden="true">
+      <img src="dyson-amber-silk.jpg" alt="Dyson Airstrait Amber Silk / Pink Champagne">
+      <div class="dyson-title">Dyson Airstrait™</div>
+      <div>Amber Silk / Pink Champagne</div>
+      <div class="footer">
+        <small>Hediye sayfasındaki görsel temsildir. Ürün: Dyson Airstrait™ – Amber Silk / Pink Champagne.</small><br><br>
+        <a class="link" href="https://www.dyson.com/hair-care/hair-straighteners/airstrait" target="_blank" rel="noopener">Dyson Airstrait™ Resmi Sitesi →</a>
+      </div>
     </div>
 
-    <p class="footer">
-      <small>
-        Hediye sayfasındaki görsel temsildir.<br>
-        Ürün: Dyson Airstrait™ – Amber Silk / Pink Champagne.
-      </small><br><br>
-      <a href="https://www.dyson.com/hair-care/hair-straighteners/airstrait" target="_blank">
-        Dyson Airstrait™ Resmi Sitesi →
-      </a><br><br>
-      💌 Sevgilerle, <b>Seco</b>
-    </p>
+    <div style="margin-top:14px">💌 Sevgilerle, <b>Seco</b></div>
   </section>
 
-  <!-- Romantik piyano müzik -->
   <audio id="bgm" preload="auto" loop playsinline>
     <source src="romantik-piyano.mp3" type="audio/mpeg" />
   </audio>
 </main>
 
 <script>
-const reveal = document.getElementById('reveal');
-const audio = document.getElementById('bgm');
-audio.volume = 0.6;
-audio.muted = false;
+  const mainReveal=document.getElementById('mainReveal');
+  const dysonBox=document.getElementById('dysonBox');
+  const audio=document.getElementById('bgm');
+  audio.volume=0.6; audio.muted=false;
 
-function openGift() {
-  reveal.style.display = 'block';
-  window.scrollTo({top: reveal.offsetTop, behavior: 'smooth'});
-  if (audio && audio.play) {
-    audio.play().catch(() => {
-      const fix = document.createElement('button');
-      fix.textContent = '🔊 Müziği Başlat';
-      fix.className = 'btn';
-      fix.onclick = () => audio.play().catch(()=>{});
-      document.querySelector('.open-cta').appendChild(fix);
-    });
+  function openMain(){
+    mainReveal.style.display='block';
+    window.scrollTo({top:mainReveal.offsetTop,behavior:'smooth'});
+    if(audio&&audio.play){
+      audio.play().catch(()=>{
+        const fix=document.createElement('a');
+        fix.textContent='🔊 Müziği Başlat';
+        fix.className='btn';
+        fix.onclick=()=>audio.play().catch(()=>{});
+        document.querySelector('.open-cta').after(fix);
+      });
+    }
   }
-}
-
-/* === 2-3'lü Kolaj Döngüsü === */
-const collage = document.getElementById('collage');
-const c1 = document.getElementById('col1');
-const c2 = document.getElementById('col2');
-const c3 = document.getElementById('col3');
-
-const gallery = [
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-1.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-2.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-3.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-4.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-5.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-6.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-7.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-8.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-9.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-10.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-11.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-12.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-13.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-14.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-15.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-16.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-17.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-18.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-19.jpg",
-  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-20.jpg"
-];
-
-let gi = 0;
-function nextGroupSize() {
-  return window.matchMedia('(max-width:520px)').matches ? 2 : 3;
-}
-function showGroup() {
-  const n = nextGroupSize();
-  const imgs = [c1, c2, c3];
-  imgs.forEach(im => im.classList.remove('show'));
-
-  for (let k=0; k<3; k++) {
-    const im = imgs[k];
-    if (k < n) {
-      const url = gallery[(gi + k) % gallery.length];
-      im.src = url;
-      im.style.display = '';
-      requestAnimationFrame(() => im.classList.add('show'));
-    } else im.style.display = 'none';
+  function openGift(){
+    dysonBox.classList.add('show');
+    dysonBox.setAttribute('aria-hidden','false');
+    setTimeout(()=>dysonBox.scrollIntoView({behavior:'smooth',block:'start'}),50);
   }
-  gi = (gi + n) % gallery.length;
-}
-showGroup();
-setInterval(showGroup, 3000);
-window.addEventListener('resize', showGroup);
+
+  const c1=document.getElementById('col1'),c2=document.getElementById('col2'),c3=document.getElementById('col3');
+  const gallery=[
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-1.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-2.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-3.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-4.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-5.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-6.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-7.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-8.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-9.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-10.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-11.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-12.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-13.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-14.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-15.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-16.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-17.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-18.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-19.jpg",
+    "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-20.jpg"
+  ];
+  let gi=0;
+  function groupSize(){return window.matchMedia('(max-width:560px)').matches?2:3;}
+  function showGroup(){
+    const n=groupSize(),imgs=[c1,c2,c3];
+    imgs.forEach(im=>im.classList.remove('show'));
+    for(let k=0;k<3;k++){
+      const im=imgs[k];
+      if(k<n){const url=gallery[(gi+k)%gallery.length];im.src=url;im.style.display='';requestAnimationFrame(()=>im.classList.add('show'));}
+      else im.style.display='none';
+    }
+    gi=(gi+n)%gallery.length;
+  }
+  showGroup(); setInterval(showGroup,3000);
+  window.addEventListener('resize',showGroup);
 </script>
 </body>
 </html>
-
