@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fulya'ya Sürpriz 🎁</title>
+  <meta name="description" content="Fulya için doğum günü sürprizi – lila temalı hediye kutusu." />
+  <style>
+    :root{
+      --bg1:#f3e9ff;     /* pastel lila */
+      --bg2:#fff0ff;     /* açık pembe-lila */
+      --accent:#b88fe6;  /* vurgu lila */
+      --accent-2:#a56fe0;
+      --text:#2a213a;
+      --white:#ffffff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, var(--bg2), transparent 60%),
+        radial-gradient(1200px 800px at 80% 90%, #eef6ff, transparent 60%),
+        linear-gradient(135deg, var(--bg1), #ffffff 60%);
+      display:flex; align-items:center; justify-content:center;
+      padding:24px;
+    }
+    .card{
+      width:min(680px, 100%);
+      background:rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
+      border:1px solid rgba(168, 120, 238, 0.25);
+      border-radius:24px;
+      box-shadow: 0 20px 60px rgba(114, 61, 186, .15);
+      padding: clamp(20px, 4vw, 32px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* küçük süs partikülleri */
+    .sparkle{
+      position:absolute;
+      width:6px; height:6px; border-radius:50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      opacity:.55; filter: blur(.2px);
+      animation: float 12s linear infinite;
+    }
+    .sparkle:nth-child(odd){ width:8px; height:8px; opacity:.35 }
+    @keyframes float{
+      0%{ transform: translateY(0) translateX(0) }
+      50%{ transform: translateY(-18px) translateX(6px) }
+      100%{ transform: translateY(0) translateX(0) }
+    }
+
+    .header{
+      text-align:center;
+      margin-bottom:16px;
+    }
+    .title{
+      font-size:clamp(20px, 4.6vw, 28px);
+      font-weight:700;
+      line-height:1.25;
+    }
+    .subtitle{
+      margin-top:6px;
+      font-size:clamp(14px, 3.5vw, 16px);
+      opacity:.8;
+    }
+
+    /* hediye kutusu */
+    .stage{
+      display:flex; align-items:center; justify-content:center;
+      padding:28px 0 8px;
+    }
+    .gift{
+      --size: 160px;
+      width:var(--size); height:calc(var(--size) * .9);
+      position:relative; cursor:pointer; user-select:none;
+      transform: translateZ(0);
+    }
+    .box{
+      position:absolute; inset:auto 0 0 0; height:65%;
+      background: linear-gradient(180deg, #d9c6ff, #cdb6ff 70%, #b68df0);
+      border-radius:12px;
+      border:1px solid rgba(168,120,238,.35);
+      box-shadow: 0 10px 30px rgba(114,61,186,.25) inset;
+    }
+    .ribbon-vert, .ribbon-horz{
+      position:absolute; background:linear-gradient(180deg, #ad86e8, #8e5fe1);
+    }
+    .ribbon-vert{ width:14%; left:43%; top:0; bottom:0; border-radius:8px }
+    .ribbon-horz{ height:16%; left:0; right:0; top:34%; border-radius:8px }
+    .lid{
+      position:absolute; left:-6%; right:-6%; top:-8%;
+      height:42%;
+      background: linear-gradient(180deg, #f0e8ff, #dac8ff 70%, #c8aff6);
+      border-radius:14px;
+      border:1px solid rgba(168,120,238,.35);
+      transform-origin: 50% 100%;
+      transition: transform .8s cubic-bezier(.22,.9,.26,1), opacity .3s ease;
+      box-shadow: 0 12px 22px rgba(114,61,186,.25);
+    }
+    .bow{
+      position:absolute; top:-20%; left:50%; transform:translateX(-50%);
+      width:60px; height:60px;
+    }
+    .bow:before, .bow:after{
+      content:""; position:absolute; width:30px; height:18px; border-radius:18px 18px 0 18px;
+      background:linear-gradient(180deg, #b88fe6, #a56fe0);
+      box-shadow: 0 4px 8px rgba(114,61,186,.25) inset;
+    }
+    .bow:before{ left:-6px; transform: rotate(-35deg) }
+    .bow:after{ right:-6px; transform: rotate(35deg) }
+
+    .open-cta{
+      margin-top:14px; text-align:center;
+    }
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      font-weight:700; letter-spacing:.2px;
+      padding:12px 18px; border-radius:999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color:var(--white);
+      box-shadow: 0 10px 20px rgba(114,61,186,.25);
+      transition: transform .08s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .btn:active{ transform: translateY(1px) }
+    .hint{ font-size:12px; opacity:.65; margin-top:8px; text-align:center }
+
+    /* içerik */
+    .content{
+      display:none; opacity:0; transform: translateY(6px);
+      transition: opacity .45s ease, transform .45s ease;
+      text-align:center;
+      margin-top:8px;
+    }
+    .content.show{ display:block; }
+    .content.reveal{ opacity:1; transform: translateY(0) }
+
+    .gift-text{
+      font-size:clamp(16px, 3.8vw, 18px);
+      line-height:1.65;
+      white-space:pre-line;
+      margin:16px 0 10px;
+    }
+
+    .photo{
+      width:100%; max-width:520px; aspect-ratio: 16 / 9;
+      border-radius:16px;
+      margin: 10px auto 8px;
+      background: linear-gradient(135deg, #f4ecff, #ecdfff 45%, #e8d7ff);
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid rgba(168,120,238,.25);
+      box-shadow: 0 10px 30px rgba(114,61,186,.15);
+      overflow:hidden;
+    }
+    .photo img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .caption{
+      font-size:13px; opacity:.8; margin-top:6px;
+    }
+    .link{
+      margin-top:10px;
+      display:inline-block; font-weight:700; text-decoration:none;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .signature{
+      margin-top:14px; font-weight:600; opacity:.85;
+    }
+
+    /* açılma animasyonu */
+    .opened .lid{ transform: rotateX( -120deg ) translateY(-4px) }
+    .opened .btn{ opacity:0; pointer-events:none }
+    .opened .hint{ opacity:0 }
+
+    /* erişilebilirlik */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-live="polite">
+    <!-- dekoratif küçük parıltılar -->
+    <span class="sparkle" style="top:14px; left:12px"></span>
+    <span class="sparkle" style="bottom:16px; right:22px; animation-delay:.6s"></span>
+    <span class="sparkle" style="top:22px; right:38px; animation-delay:1.1s"></span>
+
+    <header class="header">
+      <h1 class="title">“Doğum Günün Kutlu Olsun Aşkooo Kuşkooo💗,<br/>Sana Küçük Bir Sürprizim Var 💝🎀”</h1>
+      <p class="subtitle">Kutuyu aç ve sürprizini keşfet ✨</p>
+    </header>
+
+    <section class="stage">
+      <div class="gift" id="gift" aria-describedby="openHelp">
+        <div class="lid" aria-hidden="true">
+          <i class="bow" aria-hidden="true"></i>
+        </div>
+        <div class="box">
+          <i class="ribbon-vert" aria-hidden="true"></i>
+          <i class="ribbon-horz" aria-hidden="true"></i>
+        </div>
+      </div>
+    </section>
+
+    <div class="open-cta">
+      <button class="btn" id="openBtn" aria-controls="reveal">Kutuyu Aç 🎁</button>
+      <div class="hint" id="openHelp">İpucu: Kutuyu tıklayabilir veya “Kutuyu Aç” butonuna basabilirsin.</div>
+    </div>
+
+    <!-- Açıldıktan sonra görünen bölüm -->
+    <section id="reveal" class="content" aria-hidden="true">
+      <p class="gift-text">
+Bugün sadece senin günün…
+Her sabah senin gülümsemeni görmek, benim için dünyanın en güzel başlangıcı.
+Yanında olamasam da, kalbim bu hediyeyle senin yanında.
+Bu küçük kutunun içinden çıkan şey, senin kadar özel. ✨
+
+💗 Bu sadece bir hediye değil… her sabah seni biraz daha gülümsetmek için.
+      </p>
+
+      <!-- FOTOĞRAF BÖLÜMÜ
+           Not: Aşağıdaki <img> 'src' değerini elindeki ürün fotoğrafıyla değiştirebilirsin.
+           Örn: same folder'a "dyson-amber-silk.jpg" koyup src="dyson-amber-silk.jpg" yap.
+           Eğer fotoğraf eklemezsen, alttaki yazı kutusu görünecek. -->
+      <figure class="photo" id="photoBox" aria-label="Dyson Airstrait – Amber Silk / Pink Champagne">
+        <!-- varsayılan yer tutucu (metin kartı) -->
+        <div style="padding:22px; text-align:center">
+          <div style="font-weight:800; font-size:clamp(18px,4.4vw,22px); margin-bottom:6px;">Dyson Airstrait™</div>
+          <div style="opacity:.85; font-size:clamp(14px,3.5vw,16px)">Amber Silk / Pink Champagne</div>
+        </div>
+      </figure>
+
+      <p class="caption">Hediye sayfasındaki görsel temsildir. Ürün: Dyson Airstrait™ – Amber Silk / Pink Champagne.</p>
+      <a class="link" href="https://www.dyson.com/hair-care/hair-straighteners/airstrait" target="_blank" rel="noopener">Dyson Airstrait™ Resmi Sitesi →</a>
+
+      <div class="signature">💌 Sevgilerle, Seco</div>
+    </section>
+
+    <!-- romantik piyano (kullanıcı etkileşimi sonrası oynatılır) -->
+    <audio id="bgm" preload="auto" loop>
+      <!-- İPUCU:
+           Telifsiz kısa bir piyanoyu /mp3 olarak barındırıp buraya kaynak verebilirsin.
+           Örn: <source src="romantik-piyano.mp3" type="audio/mpeg" /> -->
+    </audio>
+
+    <span class="sr-only" id="screenReaderAnnounce"></span>
+  </main>
+
+  <script>
+    (function(){
+      const root = document.querySelector('.card');
+      const gift = document.getElementById('gift');
+      const btn  = document.getElementById('openBtn');
+      const section = document.getElementById('reveal');
+      const sr = document.getElementById('screenReaderAnnounce');
+      const audio = document.getElementById('bgm');
+
+      // İsteğe bağlı: elinde ürün görseli varsa, aşağıdaki satırın yorumunu kaldırıp yol ver:
+      // injectImage('dyson-amber-silk.jpg');
+
+      function injectImage(src){
+        const holder = document.getElementById('photoBox');
+        holder.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Dyson Airstrait – Amber Silk / Pink Champagne';
+        holder.appendChild(img);
+      }
+
+      function openGift(){
+        root.classList.add('opened');
+        // içerik göster
+        section.classList.add('show');
+        // küçük gecikmeyle yumuşak görünme
+        requestAnimationFrame(()=> {
+          requestAnimationFrame(()=> section.classList.add('reveal'));
+        });
+        // ekran okuyucu bildirimi
+        sr.textContent = 'Sürpriz açıldı. Mesaj ve hediye görseli gösteriliyor.';
+        // müzik (autoplay engellerini aşmak için kullanıcı etkileşimine bağlı)
+        try{ audio && audio.play && audio.play().catch(()=>{}); }catch(e){}
+        // erişilebilirlik
+        section.setAttribute('aria-hidden','false');
+      }
+
+      gift.addEventListener('click', openGift);
+      btn.addEventListener('click', openGift);
+    })();
+  </script>
+</body>
+</html>
