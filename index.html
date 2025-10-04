@@ -11,28 +11,39 @@
   p{line-height:1.6;font-size:1.05rem;margin:0 0 10px;white-space:pre-line}
   .section-gap{height:24px}
 
-  .gift-box,.reminder-box{
+  /* kutular */
+  .gift-box,.reminder-box,.mini-gift{
     width:180px;height:130px;border-radius:18px;margin:0 auto 18px;
     background:linear-gradient(180deg,#d8b6ff,#c89cf5);
     box-shadow:0 10px 30px rgba(120,0,255,.20);
     transition:transform .25s, box-shadow .25s; cursor:pointer; position:relative;
   }
-  .gift-box:hover,.reminder-box:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(120,0,255,.25)}
+  .gift-box:hover,.reminder-box:hover,.mini-gift:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(120,0,255,.25)}
   .gift-caption{font-weight:700;margin-bottom:10px;font-size:1.05rem}
   .hint{font-size:.95rem;opacity:.85;margin:-6px 0 12px}
 
+  /* foto kolaj */
   .collage-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px auto 22px;width:100%;max-width:560px}
   .collage-item{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;box-shadow:0 6px 18px rgba(114,61,186,.12);border:1px solid rgba(168,120,238,.2);opacity:0;transition:opacity .45s}
   .collage-item.show{opacity:1}
   @media (max-width:560px){.collage-wrap{grid-template-columns:repeat(2,1fr)}.collage-item:nth-child(3){display:none}}
 
+  /* gag (şaka) kutusu ve foto */
+  .gag-box{display:none;background:#fff4ff;border:1px solid rgba(168,120,238,.25);border-radius:18px;padding:16px 16px 12px;margin:14px 0 10px;box-shadow:0 8px 24px rgba(164,120,238,.18);animation:fadeUp .35s ease}
+  .gag-photo{width:100%;max-width:520px;border-radius:14px;box-shadow:0 8px 24px rgba(164,120,238,.18);margin:10px auto}
+  .gag-lead{font-weight:700}
+  .gag-note{opacity:.9}
+
+  /* Dyson hediye bölümü */
   .dyson-box{background:#f6edff;border-radius:22px;padding:22px;margin-top:18px;box-shadow:0 8px 28px rgba(164,120,238,.2);display:none}
   .dyson-box.show{display:block;animation:fadeUp .45s ease}
   .dyson-box img{width:100%;border-radius:16px}
   .dyson-title{font-size:1.5rem;margin:12px 0 4px;font-weight:800}
+
+  /* buton */
   .btn{
     display:inline-block;padding:10px 16px;border-radius:12px;background:#d5b3ff;color:#4b2a63;
-    font-weight:700;cursor:pointer;margin-top:10px;text-decoration:none
+    font-weight:700;cursor:pointer;margin-top:10px;text-decoration:none;border:0
   }
   .btn:hover{background:#caa6ff}
   a.link{color:#b26eff;font-weight:700;text-decoration:none}
@@ -46,8 +57,10 @@
 <main>
   <h1>Kutuyu aç ve sürprizini keşfet ✨</h1>
 
+  <!-- 1. kutu: ana mesaj + kolajı aç -->
   <div class="gift-box open-cta" onclick="openMain()"></div>
 
+  <!-- ANA BÖLÜM -->
   <section id="mainReveal" style="display:none">
     <p>
 Canım Fulya’m,
@@ -69,6 +82,7 @@ ama hep seninle. ❤️
 İyi ki varsın Aşkom. 🎂🌸
     </p>
 
+    <!-- Kolaj -->
     <div class="collage-wrap" id="collage">
       <img id="col1" class="collage-item" alt="" loading="lazy" decoding="async">
       <img id="col2" class="collage-item" alt="" loading="lazy" decoding="async">
@@ -77,10 +91,27 @@ ama hep seninle. ❤️
 
     <div class="section-gap"></div>
 
+    <!-- 2. kutu: şaka + gerçek hediye akışı -->
     <div class="gift-caption">Hediyemi unuttum zannetme 😉</div>
     <div class="hint">Aşağıdaki kutuya tıkla, hediyeni gör 😊</div>
-    <div class="reminder-box" onclick="openGift()"></div>
+    <div class="reminder-box" onclick="openGag()"></div>
 
+    <!-- ŞAKA BÖLÜMÜ -->
+    <div id="gagBox" class="gag-box" aria-hidden="true">
+      <p class="gag-lead">Düşündüm taşındım…</p>
+      <p>“Fulya ne ister?” dedim…</p>
+      <p>Cevap netti: <b>BEN.</b> 💁🏻‍♂</p>
+      <p>4K çözünürlükte <b>BEN.</b> 📸</p>
+
+      <img class="gag-photo" src="sajjadd.jpg" alt="Seco'nun 4K hediyesi 😄">
+
+      <p class="gag-note">“Yok artık, hediye bu olamaz!” dediğini duyar gibiyim 😅</p>
+      <p class="gag-note">Haklısın! Gerçek hediye aşağıda 👇</p>
+
+      <button class="btn" type="button" onclick="openRealGift()">Tıkla da gönlünü alayım 🎁</button>
+    </div>
+
+    <!-- GERÇEK HEDİYE -->
     <div id="dysonBox" class="dyson-box" aria-hidden="true">
       <img src="dyson-amber-silk.jpg" alt="Dyson Airstrait Amber Silk / Pink Champagne">
       <div class="dyson-title">Dyson Airstrait™</div>
@@ -94,36 +125,44 @@ ama hep seninle. ❤️
     <div style="margin-top:14px">💌 Sevgilerle, <b>Seco</b></div>
   </section>
 
+  <!-- müzik -->
   <audio id="bgm" preload="auto" loop playsinline>
     <source src="romantik-piyano.mp3" type="audio/mpeg" />
   </audio>
 </main>
 
 <script>
-  const mainReveal=document.getElementById('mainReveal');
-  const dysonBox=document.getElementById('dysonBox');
-  const audio=document.getElementById('bgm');
-  audio.volume=0.6; audio.muted=false;
+  const mainReveal = document.getElementById('mainReveal');
+  const gagBox     = document.getElementById('gagBox');
+  const dysonBox   = document.getElementById('dysonBox');
+  const audio      = document.getElementById('bgm');
+  audio.volume = 0.6; audio.muted = false;
 
   function openMain(){
     mainReveal.style.display='block';
-    window.scrollTo({top:mainReveal.offsetTop,behavior:'smooth'});
+    window.scrollTo({top: mainReveal.offsetTop, behavior:'smooth'});
     if(audio&&audio.play){
       audio.play().catch(()=>{
         const fix=document.createElement('a');
         fix.textContent='🔊 Müziği Başlat';
         fix.className='btn';
         fix.onclick=()=>audio.play().catch(()=>{});
-        document.querySelector('.open-cta').after(fix);
+        document.querySelector('.open-cta')?.after(fix);
       });
     }
   }
-  function openGift(){
+  function openGag(){
+    gagBox.style.display='block';
+    gagBox.setAttribute('aria-hidden','false');
+    setTimeout(()=>gagBox.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  }
+  function openRealGift(){
     dysonBox.classList.add('show');
     dysonBox.setAttribute('aria-hidden','false');
     setTimeout(()=>dysonBox.scrollIntoView({behavior:'smooth',block:'start'}),50);
   }
 
+  /* === 2-3’lü Kolaj Döngüsü (3 sn) === */
   const c1=document.getElementById('col1'),c2=document.getElementById('col2'),c3=document.getElementById('col3');
   const gallery=[
     "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-1.jpg",
@@ -154,8 +193,11 @@ ama hep seninle. ❤️
     imgs.forEach(im=>im.classList.remove('show'));
     for(let k=0;k<3;k++){
       const im=imgs[k];
-      if(k<n){const url=gallery[(gi+k)%gallery.length];im.src=url;im.style.display='';requestAnimationFrame(()=>im.classList.add('show'));}
-      else im.style.display='none';
+      if(k<n){
+        const url=gallery[(gi+k)%gallery.length];
+        im.src=url; im.style.display='';
+        requestAnimationFrame(()=>im.classList.add('show'));
+      }else im.style.display='none';
     }
     gi=(gi+n)%gallery.length;
   }
