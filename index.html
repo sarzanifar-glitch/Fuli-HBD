@@ -1,240 +1,243 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Fulya'ya Sürpriz 🎁</title>
-  <meta name="description" content="Fulya için doğum günü sürprizi – lila temalı hediye kutusu, müzik ve foto slayt.">
-  <style>
-    :root{
-      --bg1:#f3e9ff; --bg2:#fff0ff; --accent:#b88fe6; --accent2:#a56fe0; --text:#2a213a; --white:#fff;
-    }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{
-      margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 20% 10%, var(--bg2), transparent 60%),
-        radial-gradient(1200px 800px at 80% 90%, #eef6ff, transparent 60%),
-        linear-gradient(135deg, var(--bg1), #ffffff 60%);
-      display:flex; align-items:center; justify-content:center; padding:24px;
-    }
-    .card{
-      width:min(680px,100%); background:rgba(255,255,255,.82); backdrop-filter:blur(8px);
-      border:1px solid rgba(168,120,238,.25); border-radius:24px; box-shadow:0 20px 60px rgba(114,61,186,.15);
-      padding:clamp(20px,4vw,32px); position:relative; overflow:hidden;
-    }
-    .title{font-size:clamp(20px,4.6vw,28px);font-weight:800;text-align:center;line-height:1.25}
-    .subtitle{opacity:.8;text-align:center;margin:6px 0 2px}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Doğum Günün Kutlu Olsun 💜</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(145deg, #f4e7ff, #fff);
+    color: #4b2a63;
+    text-align: center;
+    overflow-x: hidden;
+  }
 
-    /* ==== BG Slideshow (performans) ==== */
-    .bg-slideshow{ position:fixed; inset:0; z-index:-2; overflow:hidden; background:#f6ecff; }
-    .bg-slideshow::before{
-      content:""; position:absolute; inset:0; z-index:1;
-      background:
-        radial-gradient(1200px 800px at 20% 10%, rgba(255,240,255,.55), transparent 60%),
-        radial-gradient(1200px 800px at 80% 90%, rgba(238,246,255,.5), transparent 60%);
-    }
-    .bg-slide{
-      position:absolute; inset:0; object-fit:cover; width:100%; height:100%;
-      filter: blur(2px) saturate(1.05);
-      opacity:0; transition:opacity 1.2s ease;
-      transform: translateZ(0);
-    }
-    .bg-slide.show{ opacity:.16; }
-    @media (max-width:740px){ .bg-slide.show{ opacity:.22 } }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 30px 20px 80px;
+  }
 
-    /* hediye kutusu */
-    .stage{display:flex;justify-content:center;padding:24px 0 6px}
-    .gift{--size:160px;width:var(--size);height:calc(var(--size)*.9);position:relative;cursor:pointer}
-    .box{position:absolute;inset:auto 0 0 0;height:65%;
-      background:linear-gradient(180deg,#d9c6ff,#cdb6ff 70%,#b68df0);border-radius:12px;border:1px solid rgba(168,120,238,.35);
-      box-shadow:0 10px 30px rgba(114,61,186,.25) inset}
-    .ribbon-vert,.ribbon-horz{position:absolute;background:linear-gradient(180deg,#ad86e8,#8e5fe1)}
-    .ribbon-vert{width:14%;left:43%;top:0;bottom:0;border-radius:8px}
-    .ribbon-horz{height:16%;left:0;right:0;top:34%;border-radius:8px}
-    .lid{position:absolute;left:-6%;right:-6%;top:-8%;height:42%;
-      background:linear-gradient(180deg,#f0e8ff,#dac8ff 70%,#c8aff6);border-radius:14px;border:1px solid rgba(168,120,238,.35);
-      transform-origin:50% 100%;transition:transform .8s cubic-bezier(.22,.9,.26,1),opacity .3s ease;
-      box-shadow:0 12px 22px rgba(114,61,186,.25)}
-    .bow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:60px;height:60px}
-    .bow:before,.bow:after{content:"";position:absolute;width:30px;height:18px;border-radius:18px 18px 0 18px;
-      background:linear-gradient(180deg,#b88fe6,#a56fe0);box-shadow:0 4px 8px rgba(114,61,186,.25) inset}
-    .bow:before{left:-6px;transform:rotate(-35deg)} .bow:after{right:-6px;transform:rotate(35deg)}
-    .open-cta{text-align:center;margin-top:10px}
-    .btn{appearance:none;border:0;cursor:pointer;font-weight:800;letter-spacing:.2px;padding:12px 18px;border-radius:999px;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));color:var(--white);box-shadow:0 10px 20px rgba(114,61,186,.25)}
-    .hint{font-size:12px;opacity:.65;margin-top:8px;text-align:center}
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
 
-    .content{display:none;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease;text-align:center;margin-top:8px}
-    .content.show{display:block}.content.reveal{opacity:1;transform:translateY(0)}
-    .gift-text{font-size:clamp(16px,3.8vw,18px);line-height:1.65;white-space:pre-line;margin:16px 0 10px}
+  .gift-box {
+    width: 160px;
+    height: 120px;
+    background: linear-gradient(180deg, #d8b6ff, #c89cf5);
+    border-radius: 16px;
+    margin: 0 auto 30px;
+    box-shadow: 0 10px 30px rgba(120, 0, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .gift-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(120, 0, 255, 0.25);
+  }
 
-    .photo{width:100%;max-width:520px;aspect-ratio:16/9;border-radius:16px;margin:10px auto 8px;
-      background:linear-gradient(135deg,#f4ecff,#ecdfff 45%,#e8d7ff);display:flex;align-items:center;justify-content:center;
-      border:1px solid rgba(168,120,238,.25);box-shadow:0 10px 30px rgba(114,61,186,.15);overflow:hidden}
-    .photo img{width:100%;height:100%;object-fit:cover;display:block}
-    .caption{font-size:13px;opacity:.8;margin-top:6px}
-    .link{margin-top:10px;display:inline-block;font-weight:800;text-decoration:none;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .signature{margin-top:14px;font-weight:700;opacity:.9}
+  p {
+    line-height: 1.6;
+    font-size: 1.05rem;
+  }
 
-    .opened .lid{transform:rotateX(-120deg) translateY(-4px)}
-    .opened .btn{opacity:0;pointer-events:none}.opened .hint{opacity:0}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-  </style>
+  .heart {
+    font-size: 1.2rem;
+    color: #ff6fb7;
+  }
+
+  .dyson-box {
+    background: #f6edff;
+    border-radius: 20px;
+    padding: 22px;
+    margin-top: 22px;
+    box-shadow: 0 8px 28px rgba(164, 120, 238, 0.2);
+  }
+
+  .dyson-box img {
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  a {
+    color: #b26eff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .footer {
+    margin-top: 20px;
+    font-size: 0.95rem;
+  }
+
+  /* === 2-3'lü iç kolaj rotatörü === */
+  .collage-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 18px auto 20px;
+    width: 100%;
+    max-width: 520px;
+  }
+  .collage-item {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(114,61,186,.12);
+    border: 1px solid rgba(168,120,238,.2);
+    opacity: 0;
+    transition: opacity .5s ease;
+  }
+  .collage-item.show { opacity: 1; }
+
+  @media (max-width: 520px) {
+    .collage-wrap { grid-template-columns: repeat(2, 1fr); }
+    .collage-item:nth-child(3) { display: none; }
+  }
+
+  /* Müzik butonu (autoplay engellenirse) */
+  .btn {
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:10px;
+    background:#d5b3ff;
+    color:#4b2a63;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:12px;
+    transition:all .2s;
+  }
+  .btn:hover { background:#caa6ff; }
+</style>
 </head>
+
 <body>
-  <!-- ARKA PLAN SLAYT -->
-  <div class="bg-slideshow" aria-hidden="true">
-    <img id="bgA" class="bg-slide show" alt="" decoding="async" fetchpriority="high">
-    <img id="bgB" class="bg-slide" alt="" decoding="async" loading="lazy">
-  </div>
+<main>
+  <h1>Kutuyu aç ve sürprizini keşfet ✨</h1>
 
-  <main class="card" aria-live="polite">
-    <h1 class="title">“Doğum Günün Kutlu Olsun Aşkooo Kuşkooo💗<br/>Sana Küçük Bir Sürprizim Var 💝🎀”</h1>
-    <p class="subtitle">Kutuyu aç ve sürprizini keşfet ✨</p>
+  <div class="gift-box open-cta" onclick="openGift()"></div>
 
-    <section class="stage">
-      <div class="gift" id="gift" aria-describedby="openHelp">
-        <div class="lid" aria-hidden="true"><i class="bow" aria-hidden="true"></i></div>
-        <div class="box"><i class="ribbon-vert"></i><i class="ribbon-horz"></i></div>
-      </div>
-    </section>
+  <section id="reveal" style="display:none;">
+    <p>
+      Bugün sadece senin günün...<br/>
+      Her sabah senin gülümsemeni görmek, benim için dünyanın en güzel başlangıcı.<br/>
+      Yanında olamasam da, kalbim bu hediyeyle senin yanında.<br/>
+      Bu küçük kutunun içinden çıkan şey, senin kadar özel. ✨
+    </p>
 
-    <div class="open-cta">
-      <button class="btn" id="openBtn" aria-controls="reveal">Kutuyu Aç 🎁</button>
-      <div class="hint" id="openHelp">İpucu: Kutuyu tıklayabilir veya butona basabilirsin.</div>
+    <p class="heart">💗 Bu sadece bir hediye değil... her sabah seni biraz daha gülümsetmek için.</p>
+
+    <!-- 🎞️ Kolaj fotoğraf döngüsü -->
+    <div class="collage-wrap" id="collage">
+      <img id="col1" class="collage-item" alt="" loading="lazy" decoding="async">
+      <img id="col2" class="collage-item" alt="" loading="lazy" decoding="async">
+      <img id="col3" class="collage-item" alt="" loading="lazy" decoding="async">
     </div>
 
-    <section id="reveal" class="content" aria-hidden="true">
-      <p class="gift-text">
-Bugün sadece senin günün…
-Her sabah senin gülümsemeni görmek, benim için dünyanın en güzel başlangıcı.
-Yanında olamasam da, kalbim bu hediyeyle senin yanında.
-Bu küçük kutunun içinden çıkan şey, senin kadar özel. ✨
+    <div class="dyson-box">
+      <img src="dyson-amber-silk.jpg" alt="Dyson Airstrait Amber Silk / Pink Champagne" />
+      <h2>Dyson Airstrait™</h2>
+      <p>Amber Silk / Pink Champagne</p>
+    </div>
 
-💗 Bu sadece bir hediye değil… her sabah seni biraz daha gülümsetmek için.
-      </p>
+    <p class="footer">
+      <small>
+        Hediye sayfasındaki görsel temsildir.<br>
+        Ürün: Dyson Airstrait™ – Amber Silk / Pink Champagne.
+      </small><br><br>
+      <a href="https://www.dyson.com/hair-care/hair-straighteners/airstrait" target="_blank">
+        Dyson Airstrait™ Resmi Sitesi →
+      </a><br><br>
+      💌 Sevgilerle, <b>Seco</b>
+    </p>
+  </section>
 
-      <figure class="photo" id="photoBox" aria-label="Dyson Airstrait – Amber Silk / Pink Champagne">
-        <img
-          src="https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/dyson-amber-silk.jpg"
-          alt="Dyson Airstrait – Amber Silk / Pink Champagne">
-      </figure>
+  <!-- Romantik piyano müzik -->
+  <audio id="bgm" preload="auto" loop playsinline>
+    <source src="romantik-piyano.mp3" type="audio/mpeg" />
+  </audio>
+</main>
 
-      <p class="caption">Hediye sayfasındaki görsel temsildir. Ürün: Dyson Airstrait™ – Amber Silk / Pink Champagne.</p>
-      <a class="link" href="https://www.dyson.com/hair-care/hair-straighteners/airstrait" target="_blank" rel="noopener">Dyson Airstrait™ Resmi Sitesi →</a>
-      <div class="signature">💌 Sevgilerle, Seco</div>
-    </section>
+<script>
+const reveal = document.getElementById('reveal');
+const audio = document.getElementById('bgm');
+audio.volume = 0.6;
+audio.muted = false;
 
-    <!-- MÜZİK -->
-    <audio id="bgm" preload="auto" loop playsinline>
-      <source src="https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/romantik-piyano.mp3" type="audio/mpeg"/>
-    </audio>
+function openGift() {
+  reveal.style.display = 'block';
+  window.scrollTo({top: reveal.offsetTop, behavior: 'smooth'});
+  if (audio && audio.play) {
+    audio.play().catch(() => {
+      const fix = document.createElement('button');
+      fix.textContent = '🔊 Müziği Başlat';
+      fix.className = 'btn';
+      fix.onclick = () => audio.play().catch(()=>{});
+      document.querySelector('.open-cta').appendChild(fix);
+    });
+  }
+}
 
-    <span class="sr-only" id="screenReaderAnnounce"></span>
-  </main>
+/* === 2-3'lü Kolaj Döngüsü === */
+const collage = document.getElementById('collage');
+const c1 = document.getElementById('col1');
+const c2 = document.getElementById('col2');
+const c3 = document.getElementById('col3');
 
-  <script>
-    (function(){
-      /* === BG slideshow (lazy preload, 2-layer crossfade) === */
-      const slideA = document.getElementById('bgA');
-      const slideB = document.getElementById('bgB');
+const gallery = [
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-1.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-2.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-3.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-4.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-5.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-6.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-7.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-8.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-9.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-10.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-11.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-12.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-13.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-14.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-15.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-16.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-17.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-18.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-19.jpg",
+  "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-20.jpg"
+];
 
-      // 20 foto – bg klasörüne yüklediğin isimlerle eşleşiyor
-      const photos = [
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-1.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-2.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-3.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-4.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-5.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-6.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-7.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-8.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-9.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-10.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-11.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-12.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-13.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-14.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-15.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-16.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-17.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-18.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-19.jpg",
-        "https://raw.githubusercontent.com/sarzanifar-glitch/Fuli-HBD/main/bg/fulya-seco-20.jpg"
-      ];
+let gi = 0;
+function nextGroupSize() {
+  return window.matchMedia('(max-width:520px)').matches ? 2 : 3;
+}
+function showGroup() {
+  const n = nextGroupSize();
+  const imgs = [c1, c2, c3];
+  imgs.forEach(im => im.classList.remove('show'));
 
-      let idx = 0, showingA = true;
-      const cache = new Map();
-
-      function preload(url){
-        if(cache.has(url)) return cache.get(url);
-        const p = new Promise((res, rej)=>{
-          const im = new Image();
-          im.decoding = "async";
-          im.onload = ()=>res(url);
-          im.onerror = rej;
-          im.src = url;
-        });
-        cache.set(url, p);
-        return p;
-      }
-      async function setSrc(el, url){
-        try{ await preload(url); el.src = url; }catch(e){}
-      }
-      async function swap(){
-        const next = photos[idx % photos.length]; idx++;
-        if(showingA){
-          await setSrc(slideB, next);
-          slideB.classList.add('show');
-          slideA.classList.remove('show');
-        }else{
-          await setSrc(slideA, next);
-          slideA.classList.add('show');
-          slideB.classList.remove('show');
-        }
-        showingA = !showingA;
-        const later = photos[idx % photos.length];
-        preload(later);
-      }
-      (function initBG(){
-        if(!photos.length) return;
-        setSrc(slideA, photos[0]); slideA.classList.add('show'); idx = 1;
-        if (photos.length > 1) preload(photos[1]);
-        setInterval(swap, 9000); // 9 sn
-      })();
-
-      /* === Gift reveal + music === */
-      const root = document.querySelector('.card');
-      const gift = document.getElementById('gift');
-      const btn  = document.getElementById('openBtn');
-      const section = document.getElementById('reveal');
-      const sr = document.getElementById('screenReaderAnnounce');
-      const audio = document.getElementById('bgm');
-      audio.volume = 0.6; audio.muted = false;
-
-      function reveal(){
-        root.classList.add('opened');
-        section.classList.add('show');
-        requestAnimationFrame(()=>{ requestAnimationFrame(()=> section.classList.add('reveal')); });
-        sr.textContent = 'Sürpriz açıldı. Mesaj ve hediye görseli gösteriliyor.';
-        section.setAttribute('aria-hidden','false');
-        if (audio && audio.play) {
-          audio.play().catch(() => {
-            const fix = document.createElement('button');
-            fix.textContent = '🔊 Müziği Başlat';
-            fix.className = 'btn';
-            fix.style.marginTop = '10px';
-            fix.onclick = () => audio.play().catch(()=>{});
-            document.querySelector('.open-cta').appendChild(fix);
-          });
-        }
-      }
-      gift.addEventListener('click', reveal);
-      btn.addEventListener('click', reveal);
-    })();
-  </script>
+  for (let k=0; k<3; k++) {
+    const im = imgs[k];
+    if (k < n) {
+      const url = gallery[(gi + k) % gallery.length];
+      im.src = url;
+      im.style.display = '';
+      requestAnimationFrame(() => im.classList.add('show'));
+    } else im.style.display = 'none';
+  }
+  gi = (gi + n) % gallery.length;
+}
+showGroup();
+setInterval(showGroup, 3000);
+window.addEventListener('resize', showGroup);
+</script>
 </body>
 </html>
